@@ -1,17 +1,21 @@
 package ru.vsu.cs.oop.german_v_v.quad_tree;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import java.util.List;
+import java.util.Random;
+
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        Rectangle world = new Rectangle(0,0,200,200);
+        QuadTree qt = new QuadTree(world,4);
+        Random rand = new Random(42);
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+        for (int i = 0; i < 100; i++) {
+            qt.insert(new Point(rand.nextDouble() * 400 - 200, rand.nextDouble() * 400 - 200));
         }
+
+        Rectangle range = new Rectangle(50,50, 40, 40);
+        List<Point> found = qt.query(range);
+        System.out.println("Найдено точек: " + found.size());
+        for (Point p : found) System.out.println(" " + p);
     }
 }
